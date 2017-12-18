@@ -39,8 +39,8 @@ func (vitess) BindVar(i int) string {
 
 // vitess doesn't allow quote
 func (vitess) Quote(key string) string {
-	//return fmt.Sprintf(`''%s''`, key)
-	return key;
+	return fmt.Sprintf("`%s`", key)
+
 }
 
 func (s *vitess) DataTypeOf(field *gorm.StructField) string {
