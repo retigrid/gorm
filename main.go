@@ -2,11 +2,13 @@ package gorm
 
 import (
 	"database/sql"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"reflect"
 	"strings"
 	"time"
+	"github.com/youtube/vitess/go/vt/vitessdriver"
 )
 
 // DB contains information for current db connection
@@ -61,6 +63,14 @@ func Open(dialect string, args ...interface{}) (db *DB, err error) {
 		dbSQL, err = sql.Open(driver, source)
 	case SQLCommon:
 		dbSQL = value
+	case vitessdriver.Configuration:
+		var driver = dialect
+		jsonBytes, err := json.Marshal(value)
+		if err != nil {
+			return nil, err
+		}
+		source = string(jsonBytes)
+		dbSQL, err = sql.Open(driver, source)
 	}
 
 	db = &DB{
