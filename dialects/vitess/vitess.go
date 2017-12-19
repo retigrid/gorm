@@ -9,7 +9,7 @@ import (
 	"time"
 
 	_ "github.com/youtube/vitess/go/vt/vitessdriver"
-	"github.com/jinzhu/gorm"
+	"github.com/retigrid/gorm"
 	"unicode/utf8"
 	"crypto/sha1"
 	"regexp"
